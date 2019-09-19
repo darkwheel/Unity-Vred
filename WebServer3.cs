@@ -16,6 +16,11 @@ public class WebServer3 : MonoBehaviour
     readonly HttpListener listener = new HttpListener();
     readonly List<string> cachedTransform = new List<string>();
     readonly List<string> cachedRotation = new List<string>();
+    
+    string responseString = String.Empty;
+    string responseStringR = String.Empty;
+    // Start is called before the first frame update
+
     void Start()
     { 
         Debug.Log(ObjectList.Count);
