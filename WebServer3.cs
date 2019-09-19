@@ -11,11 +11,12 @@ using System.Threading.Tasks;
 
 public class WebServer3 : MonoBehaviour
 {
-    private List<GameObject> ObjectList;
+    public List<GameObject> ObjectList;
     private Vector3 rotationData;
-    readonly HttpListener listener = new HttpListener();
-    readonly List<string> cachedTransform = new List<string>();
-    readonly List<string> cachedRotation = new List<string>();
+    // public Toggle OnOff;
+    HttpListener listener = new HttpListener();
+    List<string> cachedTransform = new List<string>();
+    List<string> cachedRotation = new List<string>();
     
     string responseString = String.Empty;
     string responseStringR = String.Empty;
@@ -45,6 +46,7 @@ public class WebServer3 : MonoBehaviour
             listener.Start();
 
             //Translation
+            Console.WriteLine("Listening...");
             // Note: The GetContext method blocks while waiting for a request. 
             HttpListenerContext context = listener.GetContext();
             HttpListenerRequest request = context.Request;
@@ -52,7 +54,7 @@ public class WebServer3 : MonoBehaviour
             HttpListenerResponse response = context.Response;
             // Construct a response.
             
-            string responseString = "translation [" + $"{givenObject.name}" +"] " + $"{transform.position}";
+            responseString = "translation [" + $"{givenObject.name}" +"] " + $"{transform.position}";
             byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
             // Get a response stream and write the response to it.
             response.ContentLength64 = buffer.Length;
@@ -67,7 +69,7 @@ public class WebServer3 : MonoBehaviour
             // Obtain a response givenObject.
             HttpListenerResponse responseR = contextR.Response;
             // Construct a response.
-            string responseStringR = "rotation [" + $"{givenObject.name}" +"] " + $"{rotationData}";
+            responseStringR = "rotation [" + $"{givenObject.name}" +"] " + $"{rotationData}";
             byte[] bufferR = System.Text.Encoding.UTF8.GetBytes(responseStringR);
             // Get a response stream and write the response to it.
             responseR.ContentLength64 = bufferR.Length;
@@ -101,7 +103,7 @@ public class WebServer3 : MonoBehaviour
                 // Obtain a response givenObject.
                 HttpListenerResponse response = context.Response;
 
-                string responseString = "translation [" + $"{givenObject.name}" +"] " + $"{transform.position}";
+                responseString = "translation [" + $"{givenObject.name}" +"] " + $"{transform.position}";
                 byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
 
                 // Get a response stream and write the response to it.
@@ -122,8 +124,8 @@ public class WebServer3 : MonoBehaviour
                 HttpListenerRequest request = context.Request;
                 // Obtain a response givenObject.
                 HttpListenerResponse response = context.Response;
-                string responseStringR = "rotation [" + $"{givenObject.name}" +"] " + $"{rotationData}";
-                byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseStringR);
+                responseString = "rotation [" + $"{givenObject.name}" +"] " + $"{rotationData}";
+                byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
                 // Get a response stream and write the response to it.
                 response.ContentLength64 = buffer.Length;
                 System.IO.Stream output = response.OutputStream;
@@ -136,15 +138,17 @@ public class WebServer3 : MonoBehaviour
         }
     }
 
-    static string UpdateTranslation(GameObject givenObject)
+    string UpdateTranslation(GameObject givenObject)
     {
         transform.position = givenObject.transform.position;
+        //Debug.Log("translation [" + $"{givenObject.name}" + "] " + $"{transform.position}");
         return "translation [" + $"{givenObject.name}" + "] " + $"{transform.position}";
         
     }
-    static string UpdateRotation(GameObject givenObject)
+    string UpdateRotation(GameObject givenObject)
     {
         rotationData = givenObject.transform.rotation.eulerAngles;
+        //Debug.Log("rotation [" + $"{givenObject.name}" +"] " + $"{rotationData}");
         return "rotation [" + $"{givenObject.name}" +"] " + $"{rotationData}";
     }
 }
