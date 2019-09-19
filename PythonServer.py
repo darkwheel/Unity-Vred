@@ -15,9 +15,8 @@ worldSpace = "1"
 
 print("Starting python server...")
 print("Python server... \nListen to Unity server now...")
-bool = True
 lastContent = []
-while bool == True:
+while True:
     
     #Should be the same URL like in the C# script of unity
     req = urllib.request.Request('http://127.0.0.1:80/')
@@ -30,8 +29,8 @@ while bool == True:
         #MESSAGE = re.findall(r"\-?\d+\.\d+", the_page)
         MESSAGE = re.findall(r"\-?\d+\.?\d*", the_page)
         nodeWithBrackets = re.findall(r"\[\w+\]", the_page)
-        nodeList = re.findall(r"\w+", nodeWithBrackets[0])   
-        node = nodeList[0] 
+        nodeList = re.findall(r"\w+", nodeWithBrackets[0]) 
+        node = nodeList[0]
 
         #If you find the word translation
         if isTranslation:
@@ -53,7 +52,7 @@ while bool == True:
             #print(MESSAGE[0])
             
             
-            xRotation = float(MESSAGE[0]) 
+            xRotation = float(MESSAGE[0])
             yRotation = float(MESSAGE[1])
             zRotation = float(MESSAGE[2])
 
@@ -62,7 +61,6 @@ while bool == True:
             MESSAGE[2] = str(zRotation)
             
             urlToExe = start + rotation + node + signNodeData + MESSAGE[0] + signDataData + MESSAGE[1] + signDataData + MESSAGE[2] + signEndData
-        
         #Open the created URL
         x = urllib.request.urlopen(urlToExe)
         x.close()
