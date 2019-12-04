@@ -3,7 +3,7 @@ This is a small webserver to connect unity objects with objects in VRED.
 
 To use this you have to do two things.
 
-Unity:
+Unity:\n
   Import the .cs file to Unity and connect the script to the main camera object.
   Select every object you want to connect with VRED.
   Make sure you they have the same name
