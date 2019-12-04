@@ -8,7 +8,7 @@ Unity:
   Select every object you want to connect with VRED.  
   Make sure you they have the same name  
   
-Python file  
+Python file:  
   Make sure Vred is started and all objects you want to control are there  
   Tipp: You can use the python file as an .exe, so you dont have to start it with the console or an IDE.  
   Start the python file.  
